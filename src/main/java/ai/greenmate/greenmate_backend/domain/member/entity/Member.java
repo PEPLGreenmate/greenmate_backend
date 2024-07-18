@@ -30,8 +30,8 @@ public class Member extends BaseEntity {
   private Gender gender;
   private String address;
   private LocalDate birthday;
-  private int feed;
-  private int interaction;
+  private int water;
+  private int bond;
   private int depressIndex;
   private int stressIndex;
   private int anxietyIndex;
