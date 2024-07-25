@@ -1,6 +1,5 @@
 package ai.greenmate.greenmate_backend.domain.greenmate.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class GreenmateCharacteristic {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "greenmate_characteristic_id")
   private long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
