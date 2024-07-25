@@ -15,7 +15,9 @@ public enum BaseResponseStatus {
   OVER_DAILY_TRY_COUNT(false, HttpStatus.BAD_REQUEST, 4001, "인증 하루 시도 횟수를 초과하였습니다."),
   NOT_VALID_CODE(false, HttpStatus.BAD_REQUEST, 4002, "잘못된 코드입니다."),
   NOT_VALID_EMAIL(false, HttpStatus.BAD_REQUEST, 4003, "잘못된 이메일입니다."),
-  ;
+  NOT_ENOUGH_WATER(false,HttpStatus.BAD_REQUEST, 4004, "물 개수가 부족합니다."),
+  NOT_ENOUGH_BOND(false,HttpStatus.BAD_REQUEST, 4005, "교감 개수가 부족합니다."),
+  NOT_ENOUGH_ENERGY(false, HttpStatus.BAD_REQUEST, 4006, "교감하기에 에너지가 부족합니다.");
 
   private final boolean isSuccess;
   @JsonIgnore
