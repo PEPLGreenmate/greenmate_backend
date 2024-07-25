@@ -2,7 +2,6 @@ package ai.greenmate.greenmate_backend.domain.diary.entity;
 
 import ai.greenmate.greenmate_backend.domain.greenmate.entity.Greenmate;
 import ai.greenmate.greenmate_backend.global.entity.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class Diary extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "diary_id")
   private long id;
   private String content;
 

@@ -21,12 +21,12 @@ public class Mission extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "mission_id")
   private long id;
   private String title;
   private String content;
-  private int rewardFeed;
-  private int rewardInteracton;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "difficulty")
+  private MissionDifficulty missionDifficulty;
   private LocalDateTime deadLine;
   private String reviewContent;
   @Enumerated(value = EnumType.STRING)

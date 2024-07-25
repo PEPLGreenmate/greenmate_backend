@@ -1,7 +1,6 @@
 package ai.greenmate.greenmate_backend.domain.emotionmarble.entity;
 
 import ai.greenmate.greenmate_backend.global.entity.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class EmotionMarbleKeyword extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "emotion_marble_keyword_id")
   private long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
