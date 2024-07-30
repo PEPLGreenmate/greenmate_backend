@@ -10,13 +10,13 @@ public enum MissionDifficulty {
   HARD(20,20,20),
   VERY_HARD(25,25,25),;
 
-  private int energyReward;
+  private int waterReward;
   private int bondReward;
   private int experienceReward;
 
-  MissionDifficulty(int bondReward, int energyReward, int experienceReward) {
+  MissionDifficulty(int bondReward, int experienceReward, int waterReward) {
     this.bondReward = bondReward;
-    this.energyReward = energyReward;
     this.experienceReward = experienceReward;
+    this.waterReward = waterReward;
   }
 }
