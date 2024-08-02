@@ -9,6 +9,7 @@ import ai.greenmate.greenmate_backend.domain.auth.dto.VerifyCodeRequest;
 import ai.greenmate.greenmate_backend.domain.auth.entity.VerificationCode;
 import ai.greenmate.greenmate_backend.domain.auth.repository.VerificationCodeRepository;
 import ai.greenmate.greenmate_backend.domain.member.entity.Gender;
+import ai.greenmate.greenmate_backend.domain.member.entity.LanguageType;
 import ai.greenmate.greenmate_backend.domain.member.entity.Member;
 import ai.greenmate.greenmate_backend.domain.member.repository.MemberRepository;
 import ai.greenmate.greenmate_backend.global.dto.BaseResponseStatus;
@@ -63,6 +64,7 @@ public class AuthService {
             .nickname(signupRequest.getNickname())
             .password(signupRequest.getPassword())
             .email(signupRequest.getEmail())
+            .language(LanguageType.KO) // TODO : 기본적으로 한국어? 아니면 입력받아서?
             .build();
     memberRepository.save(member);
   }
