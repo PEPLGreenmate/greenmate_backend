@@ -32,6 +32,8 @@ public class Member extends BaseEntity {
   private Gender gender;
   private String address;
   private LocalDate birthday;
+  @Enumerated(value = EnumType.STRING)
+  private LanguageType language;
 
   @ColumnDefault("0")
   private int water;
@@ -57,13 +59,15 @@ public class Member extends BaseEntity {
   }
 
   @Builder
-  public Member(String email, String nickname, String password, Gender gender, LocalDate birthday, String address) {
+  public Member(long id, String email, String password, String nickname, Gender gender, String address, LocalDate birthday, LanguageType language) {
+    this.id = id;
     this.email = email;
-    this.nickname = nickname;
     this.password = password;
+    this.nickname = nickname;
     this.gender = gender;
-    this.birthday = birthday;
     this.address = address;
+    this.birthday = birthday;
+    this.language = language;
   }
 
   public void updatePassword(String password) {
@@ -76,5 +80,16 @@ public class Member extends BaseEntity {
 
   public void updateBond(int decreaseBond) {
     this.bond += decreaseBond;
+  }
+
+  public void updateNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+  public void updateAddress(String address) {
+    this.address = address;
+  }
+  public void updateLanguage(LanguageType language) {
+    this.language = language;
   }
 }
