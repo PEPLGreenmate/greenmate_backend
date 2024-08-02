@@ -1,25 +1,60 @@
-server:
-  port: 8080
-
 spring:
-  profiles:
-    active: local
-    include: secret
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: greenmate_backend
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/greenmate_local
-    username: greenmate
-    password:
   jpa:
+    generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
-    show-sql: true
+    open-in-view: true
     defer-datasource-initialization: true
   sql:
     init:
       mode: always
+  mail:
+    host: ${MAIL_HOST}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    port: ${MAIL_PORT}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER}
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+sql:
+  init:
+    mode: always
+    data-locations: classpath:data.sql
+  jpa:
+    defer-datasource-initialization: true
+
+server:
+  port: ${SERVER_PORT}
+
+jwt:
+  secret: ${JWT_SECRET_KEY}
+
+  access:
+    expiration: ${JWT_ACCESS_EXPIRATION} # access-token 만료 기한 80초
+    header: Authorization
+
+  refresh:
+    expiration: ${JWT_REFRESH_EXPIRATION} # refresh-token 만료 기한 90초
+    header: Authorization-refresh
