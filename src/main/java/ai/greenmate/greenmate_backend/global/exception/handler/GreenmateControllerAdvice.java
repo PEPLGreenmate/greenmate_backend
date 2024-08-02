@@ -17,14 +17,14 @@ public class GreenmateControllerAdvice {
   public ResponseEntity<BaseResponse> handleNotFoundUser(GreenmateException e){
     log.info("handleNotFoundUser", e);
     return ResponseEntity.status(e.getBaseResponseStatus().getHttpStatus())
-            .body(new BaseResponse<>(e.getBaseResponseStatus().getMessage()));
+            .body(new BaseResponse<>(e.getBaseResponseStatus()));
   }
 
   @ExceptionHandler(value = GreenmateException.class)
   public ResponseEntity<BaseResponse> handleGreenamteException(GreenmateException e){
     log.info("handleGreenamteException", e);
     return ResponseEntity.status(e.getBaseResponseStatus().getHttpStatus())
-            .body(new BaseResponse<>(e.getBaseResponseStatus().getMessage()));
+            .body(new BaseResponse<>(e.getBaseResponseStatus()));
   }
 
   @ExceptionHandler(value = Exception.class)
