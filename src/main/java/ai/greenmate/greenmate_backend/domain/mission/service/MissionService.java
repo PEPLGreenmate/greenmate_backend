@@ -39,12 +39,11 @@ public class MissionService {
     String email = jwtService.getEmail();
     Member member = memberRepository.findByEmail(email)
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
-    Greenmate greenmate = greenmateRepository.findByMember(member)
-            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
-    List<MissionDTO> missionDTOs = missionRepository.findByGreenmate(greenmate)
+    List<Greenmate> greenmates = greenmateRepository.findByMemberWithGreenmateInfoFetchJoin(member);
+    List<MissionDTO> missionDTOs = missionRepository.findByGreenmateIn(greenmates)
             .stream()
             .filter(mission -> mission.getMissionStatus().equals(missionStatus))
-            .map(mission -> MissionDTO.fromMissionAndGreenmate(mission, greenmate))
+            .map(MissionDTO::fromMissionAndGreenmate)
             .toList();
     return new GetMissionsResponse(missionDTOs);
   }

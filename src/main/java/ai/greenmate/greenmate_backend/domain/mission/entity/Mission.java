@@ -56,4 +56,8 @@ public class Mission extends BaseEntity {
       this.reviewContent = content;
     }
   }
+
+  public String getMissionTypeToLowerCase() {
+    return this.missionType.name().toLowerCase();
+  }
 }

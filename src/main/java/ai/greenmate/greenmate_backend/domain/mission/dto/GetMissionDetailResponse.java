@@ -28,7 +28,7 @@ public class GetMissionDetailResponse {
             .missionId(mission.getId())
             .title(mission.getTitle())
             .content(mission.getContent())
-            .missionType(mission.getMissionType().getType())
+            .missionType(mission.getMissionTypeToLowerCase())
             .waterReward(mission.getMissionDifficulty().getWaterReward())
             .bondReward(mission.getMissionDifficulty().getBondReward())
             .deadLine(mission.getDeadLine())

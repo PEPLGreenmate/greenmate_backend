@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, Long> {
   List<Mission> findByGreenmate(Greenmate greenmate);
+  List<Mission> findByGreenmateIn(List<Greenmate> greenmates);
 }
