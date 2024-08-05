@@ -29,9 +29,8 @@ public class DiaryService {
     String email = jwtService.getEmail();
     Member member = memberRepository.findByEmail(email)
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
-    Greenmate greenmate = greenmateRepository.findByMember(member)
-            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
-    List<DiaryDTO> diaryDTOs = diaryRepository.findByGreenmate(greenmate)
+    List<Greenmate> greenmates = greenmateRepository.findByMemberWithGreenmateInfoFetchJoin(member);
+    List<DiaryDTO> diaryDTOs = diaryRepository.findByGreenmateIn(greenmates)
             .stream()
             .sorted((x, y) -> {
               if (x.getCreatedAt().isAfter(y.getCreatedAt())) return 1;

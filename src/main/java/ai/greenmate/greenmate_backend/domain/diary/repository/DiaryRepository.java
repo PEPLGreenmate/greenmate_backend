@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
   List<Diary> findByGreenmate(Greenmate greenmate);
+  List<Diary> findByGreenmateIn(List<Greenmate> greenmates);
 }
