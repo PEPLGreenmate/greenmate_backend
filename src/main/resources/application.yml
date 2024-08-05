@@ -6,7 +6,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -38,13 +38,9 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 10MB
-sql:
-  init:
-    mode: always
-    data-locations: classpath:data.sql
-  jpa:
-    defer-datasource-initialization: true
 
+
+#Values
 server:
   port: ${SERVER_PORT}
 
