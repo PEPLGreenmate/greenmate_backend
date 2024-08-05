@@ -19,7 +19,8 @@ public enum BaseResponseStatus {
   NOT_ENOUGH_WATER(false,HttpStatus.BAD_REQUEST, 4004, "물 개수가 부족합니다."),
   NOT_ENOUGH_BOND(false,HttpStatus.BAD_REQUEST, 4005, "교감 개수가 부족합니다."),
   NOT_ENOUGH_ENERGY(false, HttpStatus.BAD_REQUEST, 4006, "교감하기에 에너지가 부족합니다."),
-  DUPLICATE_NICKNAME(false, HttpStatus.BAD_REQUEST, 4007, "중복된 닉네임입니다.");
+  DUPLICATE_NICKNAME(false, HttpStatus.BAD_REQUEST, 4007, "중복된 닉네임입니다."),
+  NOT_VALID_ID(false, HttpStatus.BAD_REQUEST, 4008 , "존재하지 않는 ID 값입니다.");
 
   private final boolean isSuccess;
   @JsonIgnore
