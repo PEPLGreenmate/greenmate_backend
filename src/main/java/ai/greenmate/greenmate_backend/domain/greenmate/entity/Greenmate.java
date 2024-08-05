@@ -40,4 +40,8 @@ public class Greenmate extends BaseEntity {
   public void updateExperience(int value) {
     this.experience += value;
   }
+
+  public String getGreenmateTypeToLowerCase() {
+    return this.greenmateInfo.getGreenmateType().name().toLowerCase();
+  }
 }

@@ -1,6 +1,7 @@
 package ai.greenmate.greenmate_backend.domain.greenmate.service;
 
 import ai.greenmate.greenmate_backend.domain.greenmate.dto.BondingResponse;
+import ai.greenmate.greenmate_backend.domain.greenmate.dto.HomeGreenmateInfoDTO;
 import ai.greenmate.greenmate_backend.domain.greenmate.dto.HomeInfoResponse;
 import ai.greenmate.greenmate_backend.domain.greenmate.dto.PostGreenmatesRequest;
 import ai.greenmate.greenmate_backend.domain.greenmate.dto.WateringResponse;
@@ -17,6 +18,8 @@ import ai.greenmate.greenmate_backend.global.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,15 +39,15 @@ public class GreenmateService {
   public HomeInfoResponse findHomeInfo() {
     String email = jwtService.getEmail();
     Member member = memberRepository.findByEmail(email)
-            .orElseThrow(() -> new AuthException(BaseResponseStatus.NOT_FOUND));
-    Greenmate greenmate = greenmateRepository.findByMember(member)
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
-
-    //TODO : GPT 생성 연결 필요.
-    return HomeInfoResponse.of(greenmate, "안녕");
+    List<HomeGreenmateInfoDTO> homeGreenmateInfos = greenmateRepository.findByMemberWithGreenmateInfoFetchJoin(member)
+            .stream()
+            .map(HomeGreenmateInfoDTO::fromEntity)
+            .toList();
+    return HomeInfoResponse.of(member, homeGreenmateInfos);
   }
 
-  public WateringResponse watering() {
+  public WateringResponse watering(Long greenmateId) {
     final int INCREASE_ENERGY = 10;
     final int DECREASE_WATER = -1;
     String email = jwtService.getEmail();
@@ -55,8 +58,9 @@ public class GreenmateService {
       throw new GreenmateException(BaseResponseStatus.NOT_ENOUGH_WATER);
     }
 
-    Greenmate greenmate = greenmateRepository.findByMember(member)
-            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
+    Greenmate greenmate = greenmateRepository.findById(greenmateId)
+            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_ID));
+
     greenmate.updateEnergy(INCREASE_ENERGY);
     member.updateWater(DECREASE_WATER);
     return WateringResponse.builder()
@@ -65,7 +69,7 @@ public class GreenmateService {
             .build();
   }
 
-  public BondingResponse bonding() {
+  public BondingResponse bonding(Long greenmateId) {
     final int DECREASE_ENERGY = -10;
     final int DECREASE_BOND = -1;
     String email = jwtService.getEmail();
@@ -76,8 +80,8 @@ public class GreenmateService {
       throw new GreenmateException(BaseResponseStatus.NOT_ENOUGH_BOND);
     }
 
-    Greenmate greenmate = greenmateRepository.findByMember(member)
-            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
+    Greenmate greenmate = greenmateRepository.findById(greenmateId)
+            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_ID));
 
     if(greenmate.getEnergy() + DECREASE_ENERGY < 0) {
       throw new GreenmateException(BaseResponseStatus.NOT_ENOUGH_ENERGY);

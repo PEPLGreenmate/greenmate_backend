@@ -9,6 +9,7 @@ import ai.greenmate.greenmate_backend.global.dto.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,15 +33,15 @@ public class GreenmateController {
     return ResponseEntity.ok(new BaseResponse<>(homeInfo));
   }
 
-  @PostMapping("/water")
-  public ResponseEntity<BaseResponse> watering() {
-    WateringResponse wateringResponse = greenmateService.watering();
+  @PostMapping("/water/{greenmateId}")
+  public ResponseEntity<BaseResponse> watering(@PathVariable("greenmateId") Long greenmateId) {
+    WateringResponse wateringResponse = greenmateService.watering(greenmateId);
     return ResponseEntity.ok(new BaseResponse<>(wateringResponse));
   }
 
-  @PostMapping("/bond")
-  public ResponseEntity<BaseResponse> bonding() {
-    BondingResponse bondingResponse = greenmateService.bonding();
+  @PostMapping("/bond/{greenmateId}")
+  public ResponseEntity<BaseResponse> bonding(@PathVariable("greenmateId") Long greenmateId) {
+    BondingResponse bondingResponse = greenmateService.bonding(greenmateId);
     return ResponseEntity.ok(new BaseResponse<>(bondingResponse));
   }
 }

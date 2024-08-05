@@ -8,22 +8,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GreenmateInfoDTO {
-  private String name;
+  private String type;
   private String description;
-  private String imageUrl;
 
   @Builder
-  private GreenmateInfoDTO(String description, String imageUrl, String name) {
+  public GreenmateInfoDTO(String type, String description) {
+    this.type = type;
     this.description = description;
-    this.imageUrl = imageUrl;
-    this.name = name;
   }
 
   public static GreenmateInfoDTO of(GreenmateInfo greenmateInfo){
     return GreenmateInfoDTO.builder()
             .description(greenmateInfo.getDescription())
-            .name(greenmateInfo.getName())
-            .imageUrl(greenmateInfo.getImageUrl())
+            .type(greenmateInfo.getGreenmateType().name().toLowerCase())
             .build();
   }
 }
