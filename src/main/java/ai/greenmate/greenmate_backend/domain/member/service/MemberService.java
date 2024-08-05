@@ -1,8 +1,10 @@
 package ai.greenmate.greenmate_backend.domain.member.service;
 
+import ai.greenmate.greenmate_backend.domain.greenmate.repository.GreenmateRepository;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeAddressRequest;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeLanguageRequest;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeNicknameRequest;
+import ai.greenmate.greenmate_backend.domain.member.dto.CurrentUserResponse;
 import ai.greenmate.greenmate_backend.domain.member.dto.VerifyNicknameRequest;
 import ai.greenmate.greenmate_backend.domain.member.entity.LanguageType;
 import ai.greenmate.greenmate_backend.domain.member.entity.Member;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
   private final MemberRepository memberRepository;
+  private final GreenmateRepository greenmateRepository;
   private final JwtService jwtService;
 
   public void verifyNickname(VerifyNicknameRequest verifyNicknameRequest) {
@@ -26,6 +29,13 @@ public class MemberService {
     if(isExistNickname) {
       throw new GreenmateException(BaseResponseStatus.DUPLICATE_NICKNAME);
     }
+  }
+  public CurrentUserResponse findCurrentUser() {
+    String email = jwtService.getEmail();
+    Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
+    long greenmateCount = greenmateRepository.findByMemberWithGreenmateInfoFetchJoin(member).size();
+    return CurrentUserResponse.from(member, greenmateCount);
   }
 
   @Transactional

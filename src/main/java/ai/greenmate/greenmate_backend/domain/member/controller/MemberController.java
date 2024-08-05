@@ -3,12 +3,14 @@ package ai.greenmate.greenmate_backend.domain.member.controller;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeAddressRequest;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeLanguageRequest;
 import ai.greenmate.greenmate_backend.domain.member.dto.ChangeNicknameRequest;
+import ai.greenmate.greenmate_backend.domain.member.dto.CurrentUserResponse;
 import ai.greenmate.greenmate_backend.domain.member.dto.VerifyNicknameRequest;
 import ai.greenmate.greenmate_backend.domain.member.service.MemberService;
 import ai.greenmate.greenmate_backend.global.dto.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +47,11 @@ public class MemberController {
   public ResponseEntity<BaseResponse> changeLanguage(@RequestBody ChangeLanguageRequest changeLanguageRequest) {
     memberService.changeLanguage(changeLanguageRequest);
     return ResponseEntity.ok(new BaseResponse());
+  }
+
+  @GetMapping("/user-me")
+  public ResponseEntity<BaseResponse> getCurrentUser(){
+    CurrentUserResponse currentUserResponse = memberService.findCurrentUser();
+    return ResponseEntity.ok(new BaseResponse(currentUserResponse));
   }
 }

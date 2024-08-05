@@ -92,4 +92,8 @@ public class Member extends BaseEntity {
   public void updateLanguage(LanguageType language) {
     this.language = language;
   }
+
+  public String getGenderToLowerCase() {
+    return this.gender.name().toLowerCase();
+  }
 }
