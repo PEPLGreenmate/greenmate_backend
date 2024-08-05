@@ -64,7 +64,7 @@ public class AuthService {
             .nickname(signupRequest.getNickname())
             .password(signupRequest.getPassword())
             .email(signupRequest.getEmail())
-            .language(LanguageType.KO) // TODO : 기본적으로 한국어? 아니면 입력받아서?
+            .language(LanguageType.valueOf(signupRequest.getLanguage().toUpperCase()))
             .build();
     memberRepository.save(member);
   }

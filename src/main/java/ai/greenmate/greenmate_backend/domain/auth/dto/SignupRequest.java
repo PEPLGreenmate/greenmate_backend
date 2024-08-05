@@ -12,4 +12,5 @@ public class SignupRequest {
   private String gender;
   private String birthday;
   private String address;
+  private String language;
 }
