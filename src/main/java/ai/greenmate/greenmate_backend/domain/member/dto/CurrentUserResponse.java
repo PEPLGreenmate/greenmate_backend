@@ -14,15 +14,17 @@ public class CurrentUserResponse {
   private String gender;
   private String birthday;
   private String address;
+  private String language;
   private long greenmateCount;
 
   @Builder
-  public CurrentUserResponse(String email, String nickname, String gender, String birthday, String address, long greenmateCount) {
+  public CurrentUserResponse(String email, String nickname, String gender, String birthday, String address, String language, long greenmateCount) {
     this.email = email;
     this.nickname = nickname;
     this.gender = gender;
     this.birthday = birthday;
     this.address = address;
+    this.language = language;
     this.greenmateCount = greenmateCount;
   }
 
@@ -34,6 +36,7 @@ public class CurrentUserResponse {
             .birthday(DateUtils.getDateFromLocalDate(member.getBirthday()))
             .address(member.getAddress())
             .greenmateCount(greenmateCount)
+            .language(member.getLanguageToLowerCase())
             .build();
   }
 }
