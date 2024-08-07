@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Entity
@@ -21,8 +23,11 @@ public class Greenmate extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String name;
+  @ColumnDefault("100")
   private int energy;
+  @ColumnDefault("0")
   private int experience;
+  @ColumnDefault("0")
   private int level;
   private String expectation;
 
@@ -33,6 +38,14 @@ public class Greenmate extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "greenmate_info_id")
   private GreenmateInfo greenmateInfo;
+
+  @Builder
+  public Greenmate(String name, String expectation, Member member, GreenmateInfo greenmateInfo) {
+    this.name = name;
+    this.expectation = expectation;
+    this.member = member;
+    this.greenmateInfo = greenmateInfo;
+  }
 
   public void updateEnergy(int value) {
     this.energy += value;
