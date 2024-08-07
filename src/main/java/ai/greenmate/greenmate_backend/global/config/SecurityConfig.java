@@ -34,7 +34,7 @@ public class SecurityConfig {
             // 해당 API에 대해서는 모든 요청을 허가
             // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
             .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-              authorizationManagerRequestMatcherRegistry.requestMatchers("/api/auth/**").permitAll();
+              authorizationManagerRequestMatcherRegistry.requestMatchers("/api/auth/**","api/users/verify-nickname").permitAll();
               authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
             })
             // JWT 인증을 위하여 직접 구현한필터를  UsernamePasswordAuthenticationFilter 전에 실행
