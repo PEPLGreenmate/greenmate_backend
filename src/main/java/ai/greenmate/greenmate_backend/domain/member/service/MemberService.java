@@ -61,4 +61,12 @@ public class MemberService {
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
     member.updateLanguage(LanguageType.valueOf(changeLanguageRequest.getLanguage().toUpperCase()));
   }
+
+  @Transactional
+  public void deleteUser() {
+    String email = jwtService.getEmail();
+    Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
+    memberRepository.delete(member);
+  }
 }
