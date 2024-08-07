@@ -22,6 +22,7 @@ public class GetMissionDetailResponse {
   private long bondReward;
   private LocalDateTime deadLine;
   private String missionStatus;
+  private String greenmateType;
 
   public static GetMissionDetailResponse from(Mission mission) {
     return GetMissionDetailResponse.builder()
@@ -33,6 +34,7 @@ public class GetMissionDetailResponse {
             .bondReward(mission.getMissionDifficulty().getBondReward())
             .deadLine(mission.getDeadLine())
             .missionStatus(mission.getMissionStatus().getAlias())
+            .greenmateType(mission.getGreenmate().getGreenmateTypeToLowerCase())
             .build();
 
   }

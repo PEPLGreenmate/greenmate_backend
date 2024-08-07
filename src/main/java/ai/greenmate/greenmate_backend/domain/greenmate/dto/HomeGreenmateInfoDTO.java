@@ -13,14 +13,16 @@ public class HomeGreenmateInfoDTO {
   private int experience; // 그린메이트 경험치
   private int level; // 그린메이트 레벨
   private int energy; // 그린메이트 에너지
+  private long greenmateId;
 
   @Builder
-  public HomeGreenmateInfoDTO(String type, String greenmateName, int experience, int level, int energy) {
+  public HomeGreenmateInfoDTO(String type, String greenmateName, int experience, int level, int energy, long greenmateId) {
     this.type = type;
     this.greenmateName = greenmateName;
     this.experience = experience;
     this.level = level;
     this.energy = energy;
+    this.greenmateId = greenmateId;
   }
 
   public static HomeGreenmateInfoDTO fromEntity(Greenmate greenmate) {
@@ -30,6 +32,7 @@ public class HomeGreenmateInfoDTO {
             .experience(greenmate.getExperience())
             .level(greenmate.getLevel())
             .energy(greenmate.getEnergy())
+            .greenmateId(greenmate.getId())
             .build();
   }
 }
