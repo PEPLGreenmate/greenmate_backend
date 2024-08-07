@@ -24,6 +24,7 @@ public class Greenmate extends BaseEntity {
   private int energy;
   private int experience;
   private int level;
+  private String expectation;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
