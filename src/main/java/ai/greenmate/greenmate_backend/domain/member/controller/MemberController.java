@@ -10,6 +10,7 @@ import ai.greenmate.greenmate_backend.global.dto.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +54,11 @@ public class MemberController {
   public ResponseEntity<BaseResponse> getCurrentUser(){
     CurrentUserResponse currentUserResponse = memberService.findCurrentUser();
     return ResponseEntity.ok(new BaseResponse(currentUserResponse));
+  }
+
+  @DeleteMapping
+  public ResponseEntity<BaseResponse> deleteUser() {
+    memberService.deleteUser();
+    return ResponseEntity.ok(new BaseResponse());
   }
 }
