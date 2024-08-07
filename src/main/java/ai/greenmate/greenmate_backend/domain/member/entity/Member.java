@@ -96,4 +96,8 @@ public class Member extends BaseEntity {
   public String getGenderToLowerCase() {
     return this.gender.name().toLowerCase();
   }
+
+  public String getLanguageToLowerCase() {
+    return this.language.name().toLowerCase();
+  }
 }
