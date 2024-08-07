@@ -28,6 +28,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
+      # Application.yml 추가
+    - name: Make application.yml
+      run: |
+        cd ./src/main/resources
+        touch ./application.yml
+        
+        echo "${{ secrets.DEPLOY_YML }}" >> ./application.yml
+      shell: bash
 
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
@@ -47,29 +55,29 @@ jobs:
         target: "source"
         rm: true
             
-   # make .env
-    - name: Create .env file
-      run: |
-        echo "${{ secrets.ENV_PROD }}" > .env
-        echo "Created .env file with content."
+#   # make .env
+#    - name: Create .env file
+#      run: |
+#        echo "${{ secrets.ENV_PROD }}" > .env
+#        echo "Created .env file with content."
+#
+#    - name: Print .env file content
+#      run: cat .env
+#
+#    - name: Upload .env to server
+#      uses: appleboy/ssh-action@v0.1.6
+#      with:
+#        host: ${{ secrets.DEPLOY_SSH_HOST }}
+#        username: ${{ secrets.DEPLOY_SSH_USERNAME }}
+#        key: ${{ secrets.DEPLOY_SSH_KEY }}
+#        port: ${{ secrets.DEPLOY_SSH_PORT }}
+#        script_stop: true
+#        script: |
+#          mkdir -p ${{ secrets.DEPLOY_SERVER_PATH }}
+#          cat > ${{ secrets.DEPLOY_SERVER_PATH }}/.env <<EOF
+#          cat ${{ secrets.DEPLOY_SERVER_PATH }}/.env
+#          EOF
 
-    - name: Print .env file content
-      run: cat .env
-
-    - name: Upload .env to server
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.DEPLOY_SSH_HOST }}
-        username: ${{ secrets.DEPLOY_SSH_USERNAME }}
-        key: ${{ secrets.DEPLOY_SSH_KEY }}
-        port: ${{ secrets.DEPLOY_SSH_PORT }}
-        script_stop: true
-        script: |
-          mkdir -p ${{ secrets.DEPLOY_SERVER_PATH }}
-          cat > ${{ secrets.DEPLOY_SERVER_PATH }}/.env <<EOF
-          cat ${{ secrets.DEPLOY_SERVER_PATH }}/.env
-          EOF
-          
     #delpoy by action_deploy.sh
     - name: Deploy
       uses: appleboy/ssh-action@master
