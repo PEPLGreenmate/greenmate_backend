@@ -67,7 +67,7 @@ jobs:
         script: |
           mkdir -p ${{ secrets.DEPLOY_SERVER_PATH }}
           cat > ${{ secrets.DEPLOY_SERVER_PATH }}/.env <<EOF
-          $(cat .env)
+          cat ${{ secrets.DEPLOY_SERVER_PATH }}/.env
           EOF
           
     #delpoy by action_deploy.sh
