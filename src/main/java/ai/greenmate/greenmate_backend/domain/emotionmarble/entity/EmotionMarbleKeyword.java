@@ -9,9 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmotionMarbleKeyword extends BaseEntity {
   @Id
@@ -26,4 +28,12 @@ public class EmotionMarbleKeyword extends BaseEntity {
   @JoinColumn(name = "keyword_id")
   private Keyword keyword;
 
+  @Override
+  public String toString() {
+    return "EmotionMarbleKeyword{" +
+            "id=" + id +
+            ", emotionMarble=" + emotionMarble +
+            ", keyword=" + keyword +
+            '}';
+  }
 }
