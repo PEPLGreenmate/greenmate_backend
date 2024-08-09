@@ -80,7 +80,7 @@ public class MissionService {
     log.info("postReviewRequest : " + postReviewRequest.toString());
     Mission mission = missionRepository.findById(missionId)
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_FOUND));
-    mission.updateReview(postReviewRequest.getEmotion(), postReviewRequest.getContent());
+    mission.updateReview(postReviewRequest.getEmotion().toUpperCase(), postReviewRequest.getContent());
   }
 
   public GetMissionReviewResponse findMissionReview(long missionId) {

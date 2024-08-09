@@ -59,7 +59,7 @@ public class AuthService {
 
     Member member = Member.builder()
             .address(signupRequest.getAddress())
-            .gender(Gender.valueOf(signupRequest.getGender()))
+            .gender(Gender.valueOf(signupRequest.getGender().toUpperCase()))
             .birthday(DateUtils.getLocalDate(signupRequest.getBirthday()))
             .nickname(signupRequest.getNickname())
             .password(signupRequest.getPassword())

@@ -1,5 +1,6 @@
 package ai.greenmate.greenmate_backend.domain.mission.entity;
 
+import ai.greenmate.greenmate_backend.domain.emotionmarble.entity.EmotionMarble;
 import ai.greenmate.greenmate_backend.domain.greenmate.entity.Greenmate;
 import ai.greenmate.greenmate_backend.global.entity.BaseEntity;
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +41,10 @@ public class Mission extends BaseEntity {
   private ReviewEmotion reviewEmotion;
   @Enumerated(value = EnumType.STRING)
   private MissionType missionType;
+
+  @OneToOne
+  @JoinColumn(name = "emotion_marble_id")
+  private EmotionMarble emotionMarble;
 
   @ManyToOne
   @JoinColumn(name = "greenmate_id")

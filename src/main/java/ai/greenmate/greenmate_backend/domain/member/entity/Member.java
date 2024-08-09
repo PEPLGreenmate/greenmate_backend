@@ -35,16 +35,16 @@ public class Member extends BaseEntity {
   @Enumerated(value = EnumType.STRING)
   private LanguageType language;
 
-  @ColumnDefault("0")
+  @ColumnDefault("10")
   private int water;
-  @ColumnDefault("0")
+  @ColumnDefault("10")
   private int bond;
   @ColumnDefault("0")
-  private int depressIndex;
+  private int depressScore;
   @ColumnDefault("0")
-  private int stressIndex;
+  private int stressScore;
   @ColumnDefault("0")
-  private int anxietyIndex;
+  private int anxietyScore;
   private LocalDateTime depressTestAt;
   private LocalDateTime stressTestAt;
   private LocalDateTime anxietyTestAt;
