@@ -25,16 +25,17 @@ public class DiaryService {
   private final JwtService jwtService;
   private final GreenmateRepository greenmateRepository;
 
-  public GetDiariesResponse getAllDiaries() {
+  public GetDiariesResponse getAllDiaries(String greenmateId) {
     String email = jwtService.getEmail();
     Member member = memberRepository.findByEmail(email)
             .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_EMAIL));
-    List<Greenmate> greenmates = greenmateRepository.findByMemberWithGreenmateInfoFetchJoin(member);
-    List<DiaryDTO> diaryDTOs = diaryRepository.findByGreenmateIn(greenmates)
+    Greenmate greenmate = greenmateRepository.findByMemberAndId(member, Long.parseLong(greenmateId))
+            .orElseThrow(() -> new GreenmateException(BaseResponseStatus.NOT_VALID_ID));
+    List<DiaryDTO> diaryDTOs = diaryRepository.findByGreenmate(greenmate)
             .stream()
             .sorted((x, y) -> {
-              if (x.getCreatedAt().isAfter(y.getCreatedAt())) return 1;
-              else return -1;
+              if (x.getCreatedAt().isAfter(y.getCreatedAt())) return -1;
+              else return 1;
             })
             .map(diary -> new DiaryDTO(diary.getId(), diary.getCreatedAt().toLocalDate(), diary.getContent()))
             .toList();

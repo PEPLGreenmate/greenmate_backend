@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GreenmateRepository extends JpaRepository<Greenmate, Long> {
 
   @Query("SELECT g FROM Greenmate g JOIN FETCH g.greenmateInfo WHERE g.member = :member")
   List<Greenmate> findByMemberWithGreenmateInfoFetchJoin(Member member);
+
+  Optional<Greenmate> findByMemberAndId(Member member, Long id);
 }
